@@ -13,9 +13,9 @@ def Check_oubject(subject,pronun):
 
         # Determine the string description based on the 'Person' value
         if person_tag == 0:
-            correctness_status = "Correct"
-        elif person_tag == 1:
             correctness_status = "Incorrect"
+        elif person_tag == 1:
+            correctness_status = "Correct"
         elif person_tag == 3:
             correctness_status = "Correct"
         else:
