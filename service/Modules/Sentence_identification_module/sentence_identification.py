@@ -1,4 +1,4 @@
-from service.ML.sinmorphic import get_sinhala_morphology
+from service.Modules.Sentence_identification_module.sinmorphic import get_sinhala_morphology
 import pandas as pd
 from service.Data.data_frames import get_stopwords,get_pos_data
 from typing import Optional
@@ -169,3 +169,29 @@ def extract_tense(verb_tag, Last_verb):
     # Default to None if no verb found
     return None
 
+
+
+
+def extract_person(subject,pronun):
+    # Find the row in the DataFrame where the 'Noun' column matches the input noun
+    row = pronun[pronun['Noun'] == subject]
+
+    # Check if the noun was found in the DataFrame
+    if not row.empty:
+        # Get the 'Person' value from the matching row
+        person_tag = row['Person'].values[0]
+
+        # Determine the string description based on the 'Person' value
+        if person_tag == 1:
+            s_person = "First Person"
+        elif person_tag == 2:
+            s_person = "Second Person"
+        elif person_tag == 3:
+            s_person = "Third Person"
+        else:
+            s_person = "Unknown Person"
+
+        return s_person
+    else:
+        # Return None or a suitable default value if the noun is not found
+        return "Third Person"

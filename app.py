@@ -2,8 +2,9 @@ import pandas as pd
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from service.Data.data_frames import get_pos_data, get_stopwords, get_final_verb
-from service.ML.sentence_identification import sentence_decom, get_sinhala_morphology, extract_tense, extract_gender_number
+from service.Data.data_frames import get_pos_data, get_stopwords, get_final_verb, get_pronun
+from service.Modules.Sentence_identification_module.sentence_identification import sentence_decom, get_sinhala_morphology, extract_tense, \
+    extract_gender_number, extract_person
 
 app = Flask(__name__)
 CORS(app)
@@ -12,7 +13,7 @@ CORS(app)
 postag_df = get_pos_data()
 Stop_word = get_stopwords()
 final_verbs = get_final_verb()
-
+pronun = get_pronun()
 @app.route('/decompose_sentence', methods=['POST'])
 def decompose_sentence():
     # Get the JSON data from the request
@@ -47,7 +48,7 @@ def decompose_sentence():
 
     # Extract tense from the verb_tag DataFrame
     tense = extract_tense(verb_tag, Last_verb=final_verbs)
-
+    person = extract_person(s_object, pronun)
     # Construct decomposition dictionary
     decomposition_dict = {
         'object': s_object,
@@ -59,7 +60,8 @@ def decompose_sentence():
     identification_dict = {
         'gender': gender,
         'number': number,
-        'tense': tense
+        'tense': tense,
+        'person': person
     }
 
     # Combine decomposition and identification dictionaries

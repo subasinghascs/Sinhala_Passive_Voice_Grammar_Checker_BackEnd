@@ -1,6 +1,6 @@
 from flask import request, jsonify
 
-from service.ML.sentence_identification import sentence_decom
+from service.Modules.Sentence_identification_module.sentence_identification import sentence_decom
 def hello():  # put application's code here
     return 'Hello World!'
 

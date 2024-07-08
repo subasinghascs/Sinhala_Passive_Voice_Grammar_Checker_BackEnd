@@ -44,3 +44,7 @@ def get_pos_data():
 def get_final_verb():
     Last_verb = pd.read_csv('service/Data/Data_sets/Final_verb/Last_passive_verbs.csv')
     return Last_verb
+
+def get_pronun():
+    pronun = pd.read_csv('service/Data/Data_sets/Pronoun/Pronoun.csv')
+    return pronun
