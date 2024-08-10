@@ -109,17 +109,21 @@ def check_verb(verb, final_verbs, s_person, s_tense, s_singular):
                (person_tag == 2 and s_person == "Second Person") or \
                (person_tag == 3 and s_person == "Third Person"):
                 p_state = 1
+                print(person_tag,s_person)
+                print(p_state)
 
+            t_state=tense_identification(tense_tag, s_tense)
+            print(t_state)
             # Check tense
-            if (tense_tag == "Presesnt" and s_tense == "Present or Future") or \
-               (tense_tag == "Past" and s_tense == "Past"):
-                t_state = 1
+            # if (tense_tag == "Presesnt" and s_tense == "Present or Future") or \
+            #    (tense_tag == "Past" and s_tense == "Past"):
+            #     t_state = 1
+            #     print(t_state)
 
             # Check singular/plural
-            if (S_tag == "P" and s_singular == "Plural") or \
-               (S_tag == "S" and s_singular == "Singular"):
-                s_state = 1
 
+            s_state=number_ditection(S_tag, s_singular)
+            print(s_state)
             # If all states are correct, return "Correct"
             if p_state == 1 and t_state == 1 and s_state == 1:
                 correctness_status = "Correct"
@@ -135,3 +139,22 @@ def check_verb(verb, final_verbs, s_person, s_tense, s_singular):
         correctness_status = "Incorrect"
 
     return correctness_status
+
+def tense_identification(tense_tag,s_tense):
+    print(tense_tag)
+    print(s_tense)
+    if (tense_tag == "Presesnt" and s_tense == "Presesnt") or \
+            (tense_tag == "Past" and s_tense == "Past"):
+        return 1
+        print(t_state)
+    else:
+        return 0
+
+def number_ditection(S_tag,s_singular):
+    print(S_tag)
+    print(s_singular)
+    if (S_tag == "P" and s_singular == "Plural") or \
+            (S_tag == "S" and s_singular == "Singular"):
+        return 1
+    else:
+        return 0

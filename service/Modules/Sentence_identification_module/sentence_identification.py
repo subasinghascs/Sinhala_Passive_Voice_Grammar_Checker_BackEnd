@@ -123,6 +123,11 @@ def sentence_decom(sentence, postag_df):
 def extract_gender_number(description):
     gender = None
     number = None
+    # Check for number tags
+    if '+SG' in description:
+        number = 'Singular'
+    elif '+PL' in description:
+        number = 'Plural'
 
     # Check for gender tags
     if '+M' in description:
@@ -132,13 +137,13 @@ def extract_gender_number(description):
     elif '+N' in description:
         gender = 'Neuter'
 
-    # Check for number tags
-    if '+SG' in description:
-        number = 'Singular'
-    elif '+PL' in description:
-        number = 'Plural'
-
     return gender, number
+def ex_gender(object, pronun):
+    row = pronun[pronun['Noun'] == object]
+    if not row.empty:
+        return row.iloc[0]['gen']
+    else:
+        return "Neuter"
 
 def extract_tense(verb_tag, Last_verb):
     # Check if the verb in verb_tag is present in Last_verb dataset
